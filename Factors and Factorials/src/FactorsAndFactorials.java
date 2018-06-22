@@ -37,6 +37,7 @@ public class FactorsAndFactorials
 
 		for(int input : userInput)
 		{
+			//TODO call factor method and print results
 			System.out.println(factorial(input, 1));
 		}
 	}
@@ -45,6 +46,14 @@ public class FactorsAndFactorials
 	{		
 		ArrayList<Integer> factors = new ArrayList<Integer>();
 
+		while(number != 1)
+		{
+			for(int i = 0; i < primes.size(); i++)
+			{
+				
+			}
+		}
+		
 		return null;
 	}
 	
@@ -62,7 +71,7 @@ public class FactorsAndFactorials
 		// possible prime number
 		int number = 3;
 		
-		while(count < 25)
+		while(number <= 100)
 		{
 			// checks if a number is prime
 			if(isPrime(number))
