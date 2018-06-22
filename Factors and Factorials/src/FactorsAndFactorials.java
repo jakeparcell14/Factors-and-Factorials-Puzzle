@@ -33,6 +33,37 @@ public class FactorsAndFactorials
 		}
 	}
 
+	public static ArrayList<Integer> findFactors(int number)
+	{
+		
+
+
+		return null;
+	}
+
+	/**
+	 * calculates if a given number is prime or not
+	 * @param number 			value to be tested
+	 * @param startingPoint		starting number to test for factors
+	 * @return					true if the number is prime, false if not
+	 */
+	public static boolean isPrime(int number, int startingPoint)
+	{
+		if(number % 2 == 0)
+		{
+			return false;
+		}
+
+		for(int i = startingPoint; i < number; i+= 2)
+		{
+			if(number % i == 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * recursive function that calculates the factorial of a given number
 	 * @param n number given for factorial
@@ -52,31 +83,5 @@ public class FactorsAndFactorials
 
 		return product;
 	}
-
-	public static ArrayList<Integer> findFactors(int number)
-	{
-		
-
-
-		return null;
-	}
-
-	public static boolean isPrime(int number, int startingPoint)
-	{
-		if(number % 2 == 0)
-		{
-			return false;
-		}
-
-		for(int i = startingPoint; i < number; i+= 2)
-		{
-			if(number % i == 0)
-			{
-				return false;
-			}
-		}
-		return true;
-	}
-
 }
 
