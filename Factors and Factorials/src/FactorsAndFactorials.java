@@ -33,6 +33,12 @@ public class FactorsAndFactorials
 		}
 	}
 
+	/**
+	 * recursive function that calculates the factorial of a given number
+	 * @param n number given for factorial
+	 * @param product value of factorial
+	 * @return factorial of n
+	 */
 	public static int factorial(int n, int product)
 	{
 		if(n == 1)
@@ -49,24 +55,27 @@ public class FactorsAndFactorials
 
 	public static ArrayList<Integer> findFactors(int number)
 	{
-
+		
 
 
 		return null;
 	}
 
-	public static boolean isPrime(int number)
+	public static boolean isPrime(int number, int startingPoint)
 	{
 		if(number % 2 == 0)
 		{
 			return false;
 		}
 
-		for(int i = 3; i < number; i+= 2)
+		for(int i = startingPoint; i < number; i+= 2)
 		{
-
+			if(number % i == 0)
+			{
+				return false;
+			}
 		}
-		return false;
+		return true;
 	}
 
 }
