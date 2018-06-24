@@ -17,13 +17,7 @@ public class FactorsAndFactorials
 		//create arraylist of all primes less than 100
 		ArrayList<Integer> primes = new ArrayList<Integer>();
 		findPrimes(primes);
-		
-		//prints all prime numbers less than 100
-/*		for(int i = 0; i < 25; i++)
-		{
-			System.out.println(primes.get(i));
-		}*/
-		
+
 		//take in all user input before performing operations
 		ArrayList<Integer> userInput = new ArrayList<Integer>();
 		while(true)
@@ -34,58 +28,117 @@ public class FactorsAndFactorials
 			{
 				break;
 			}
-			
+
 			userInput.add(input);
 		}
 
 		for(int input : userInput)
 		{
 			//TODO add print function
-			ArrayList<Integer> factors = findFactors(factorial(input, 1), primes);
-			
+			ArrayList<Integer> factors = findFactors(input, primes);
+
 			printFactors(input, factors);
 		}
 	}
-	
+
+	/**
+	 * prints all factors of a given number
+	 * @param number	number who's factorial was calculated
+	 * @param factors	factors of the number
+	 */
 	public static void printFactors(int number, ArrayList<Integer> factors)
 	{
-		System.out.print(number + "! = ");
-		
+		String num = "";
+		//format number
+		if(number < 100)
+		{
+			num = " " + number;
+			
+			if(number < 10)
+			{
+				num = " " + num;
+			}
+		}
+		else
+		{
+			num = Integer.toString(number);
+		}
+		System.out.print(num + "! = ");
+
 		for(int i = 0; i < factors.size(); i++)
 		{
+			if(i % 15 == 0 && i > 0)
+			{
+				System.out.println();
+				System.out.print("       ");
+			}
+			
 			if(factors.get(i) != 0)
 			{
-				System.out.print(factors.get(i) + " ");
+				String fac = "";
+				
+				//format factor
+				if(factors.get(i) < 100)
+				{
+					fac = " " + factors.get(i);
+					
+					if(factors.get(i) < 10)
+					{
+						fac = " " + fac;
+					}
+				}
+				System.out.print(fac);
 			}
 			else
 			{
 				break;
 			}
 		}
-		
+
 		System.out.println();
 	}
 
+	/**
+	 * finds all factors of a given number
+	 * @param number	number to be factored
+	 * @param primes	all prime numbers less than 100
+	 * @return			arraylist of all factors
+	 */
 	public static ArrayList<Integer> findFactors(int number, ArrayList<Integer> primes)
 	{		
 		ArrayList<Integer> factors = new ArrayList<Integer>(Collections.nCopies(primes.size(), 0));
 
-		while(number != 1)
+		// iterate through all numbers being multiplied in the factorial
+		for(int i = 2; i <= number; i++)
 		{
-			for(int i = 0; i < primes.size(); i++)
+			if(primes.contains(i))
 			{
-				if(number % primes.get(i) == 0)
+				// i is a prime number
+				factors.set(primes.indexOf(i), factors.get(primes.indexOf(i)) + 1);
+			}
+			else
+			{
+				int factorable = i;
+				// i is not a prime number so reduce it using a prime less than the square root of the number
+				for(int j = 0; primes.get(j) * primes.get(j) <= factorable; j++)
 				{
-					number = number / primes.get(i);
-					factors.set(i, factors.get(i) + 1);
-					break;
+					while(factorable % primes.get(j) == 0)
+					{
+						factorable = factorable / primes.get(j);
+						factors.set(j, factors.get(j) + 1);
+
+						if(primes.contains(factorable))
+						{
+							factors.set(primes.indexOf(factorable), factors.get(primes.indexOf(factorable)) + 1);
+							break;
+						}
+					}
 				}
 			}
 		}
-		
 		return factors;
 	}
-	
+
 	/**
 	 * fills an array with all primes less than 100
 	 * @param primes
@@ -93,13 +146,13 @@ public class FactorsAndFactorials
 	public static void findPrimes(ArrayList<Integer> primes)
 	{
 		primes.add(2);
-		
+
 		// current index of the prime array
 		int count = 1;
-		
+
 		// possible prime number
 		int number = 3;
-		
+
 		while(number <= 100)
 		{
 			// checks if a number is prime
@@ -109,7 +162,7 @@ public class FactorsAndFactorials
 				primes.add(number);
 				count++;
 			}
-			
+
 			number += 2;
 		}
 	}
@@ -134,26 +187,6 @@ public class FactorsAndFactorials
 			}
 		}
 		return true;
-	}
-
-	/**
-	 * recursive function that calculates the factorial of a given number
-	 * @param n number given for factorial
-	 * @param product value of factorial
-	 * @return factorial of n
-	 */
-	public static int factorial(int n, int product)
-	{
-		if(n == 1)
-		{
-			return product;
-		}
-		else
-		{
-			product = factorial(n - 1, n * product);
-		}
-
-		return product;
 	}
 }
 
