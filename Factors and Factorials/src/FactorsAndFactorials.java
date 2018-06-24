@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -13,16 +14,18 @@ public class FactorsAndFactorials
 	{
 		Scanner in = new Scanner(System.in);
 
+		//create arraylist of all primes less than 100
 		ArrayList<Integer> primes = new ArrayList<Integer>();
 		findPrimes(primes);
 		
-		for(int i = 0; i < 25; i++)
+		//prints all prime numbers less than 100
+/*		for(int i = 0; i < 25; i++)
 		{
 			System.out.println(primes.get(i));
-		}
+		}*/
 		
+		//take in all user input before performing operations
 		ArrayList<Integer> userInput = new ArrayList<Integer>();
-
 		while(true)
 		{
 			int input = in.nextInt();
@@ -37,24 +40,50 @@ public class FactorsAndFactorials
 
 		for(int input : userInput)
 		{
-			//TODO call factor method and print results
-			System.out.println(factorial(input, 1));
+			//TODO add print function
+			ArrayList<Integer> factors = findFactors(factorial(input, 1), primes);
+			
+			printFactors(input, factors);
 		}
+	}
+	
+	public static void printFactors(int number, ArrayList<Integer> factors)
+	{
+		System.out.print(number + "! = ");
+		
+		for(int i = 0; i < factors.size(); i++)
+		{
+			if(factors.get(i) != 0)
+			{
+				System.out.print(factors.get(i) + " ");
+			}
+			else
+			{
+				break;
+			}
+		}
+		
+		System.out.println();
 	}
 
 	public static ArrayList<Integer> findFactors(int number, ArrayList<Integer> primes)
 	{		
-		ArrayList<Integer> factors = new ArrayList<Integer>();
+		ArrayList<Integer> factors = new ArrayList<Integer>(Collections.nCopies(primes.size(), 0));
 
 		while(number != 1)
 		{
 			for(int i = 0; i < primes.size(); i++)
 			{
-				
+				if(number % primes.get(i) == 0)
+				{
+					number = number / primes.get(i);
+					factors.set(i, factors.get(i) + 1);
+					break;
+				}
 			}
 		}
 		
-		return null;
+		return factors;
 	}
 	
 	/**
