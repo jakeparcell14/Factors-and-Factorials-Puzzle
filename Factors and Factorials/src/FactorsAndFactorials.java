@@ -32,9 +32,9 @@ public class FactorsAndFactorials
 			userInput.add(input);
 		}
 
+		// iterate through user input to factor and print for each given number
 		for(int input : userInput)
 		{
-			//TODO add print function
 			ArrayList<Integer> factors = findFactors(input, primes);
 
 			printFactors(input, factors);
@@ -65,6 +65,7 @@ public class FactorsAndFactorials
 		}
 		System.out.print(num + "! = ");
 
+		// print all factors and create a new line every fifteen numbers
 		for(int i = 0; i < factors.size(); i++)
 		{
 			if(i % 15 == 0 && i > 0)
@@ -176,9 +177,11 @@ public class FactorsAndFactorials
 	{
 		if(number % 2 == 0)
 		{
+			// number is even and therefore not prime
 			return false;
 		}
 
+		// if given number is not even, check all odd numbers for factors
 		for(int i = 3; i < number; i+= 2)
 		{
 			if(number % i == 0)
